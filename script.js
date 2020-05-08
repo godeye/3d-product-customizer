@@ -1,193 +1,250 @@
-const LOADER = document.getElementById('js-loader');
+const LOADER = document.getElementById("js-loader");
 
-const TRAY = document.getElementById('js-tray-slide');
-const DRAG_NOTICE = document.getElementById('js-drag-notice');
+const TRAY = document.getElementById("js-tray-slide");
+const DRAG_NOTICE = document.getElementById("js-drag-notice");
 
 var theModel;
 
 const MODEL_PATH = "chair.glb";
 
-var activeOption = 'legs';
+var activeOption = "legs";
 var loaded = false;
 
 const colors = [
-{
-  texture: 'img/wood_.jpg',
-  size: [2, 2, 2],
-  shininess: 60 },
+  {
+    texture: "img/wood_.jpg",
+    size: [2, 2, 2],
+    shininess: 60,
+  },
 
-{
-  texture: 'img/fabric_.jpg',
-  size: [4, 4, 4],
-  shininess: 0 },
+  {
+    texture: "img/fabric_.jpg",
+    size: [4, 4, 4],
+    shininess: 0,
+  },
 
-{
-  texture: 'img/pattern_.jpg',
-  size: [8, 8, 8],
-  shininess: 10 },
+  {
+    texture: "img/pattern_.jpg",
+    size: [8, 8, 8],
+    shininess: 10,
+  },
+  {
+    texture: "img/amla.jpg",
+    size: [20, 20, 20],
+    shininess: 10,
+  },
+  {
+    texture: "img/denim_.jpg",
+    size: [3, 3, 3],
+    shininess: 0,
+  },
 
-{
-  texture: 'img/denim_.jpg',
-  size: [3, 3, 3],
-  shininess: 0 },
+  {
+    texture: "img/quilt_.jpg",
+    size: [6, 6, 6],
+    shininess: 0,
+  },
 
-{
-  texture: 'img/quilt_.jpg',
-  size: [6, 6, 6],
-  shininess: 0 },
+  {
+    color: "131417",
+  },
 
-{
-  color: '131417' },
+  {
+    color: "374047",
+  },
 
-{
-  color: '374047' },
+  {
+    color: "5f6e78",
+  },
 
-{
-  color: '5f6e78' },
+  {
+    color: "7f8a93",
+  },
 
-{
-  color: '7f8a93' },
+  {
+    color: "97a1a7",
+  },
 
-{
-  color: '97a1a7' },
+  {
+    color: "acb4b9",
+  },
 
-{
-  color: 'acb4b9' },
+  {
+    color: "DF9998",
+  },
 
-{
-  color: 'DF9998' },
+  {
+    color: "7C6862",
+  },
 
-{
-  color: '7C6862' },
+  {
+    color: "A3AB84",
+  },
 
-{
-  color: 'A3AB84' },
+  {
+    color: "D6CCB1",
+  },
 
-{
-  color: 'D6CCB1' },
+  {
+    color: "F8D5C4",
+  },
 
-{
-  color: 'F8D5C4' },
+  {
+    color: "A3AE99",
+  },
 
-{
-  color: 'A3AE99' },
+  {
+    color: "EFF2F2",
+  },
 
-{
-  color: 'EFF2F2' },
+  {
+    color: "B0C5C1",
+  },
 
-{
-  color: 'B0C5C1' },
+  {
+    color: "8B8C8C",
+  },
 
-{
-  color: '8B8C8C' },
+  {
+    color: "565F59",
+  },
 
-{
-  color: '565F59' },
+  {
+    color: "CB304A",
+  },
 
-{
-  color: 'CB304A' },
+  {
+    color: "FED7C8",
+  },
 
-{
-  color: 'FED7C8' },
+  {
+    color: "C7BDBD",
+  },
 
-{
-  color: 'C7BDBD' },
+  {
+    color: "3DCBBE",
+  },
 
-{
-  color: '3DCBBE' },
+  {
+    color: "264B4F",
+  },
 
-{
-  color: '264B4F' },
+  {
+    color: "389389",
+  },
 
-{
-  color: '389389' },
+  {
+    color: "85BEAE",
+  },
 
-{
-  color: '85BEAE' },
+  {
+    color: "F2DABA",
+  },
 
-{
-  color: 'F2DABA' },
+  {
+    color: "F2A97F",
+  },
 
-{
-  color: 'F2A97F' },
+  {
+    color: "D85F52",
+  },
 
-{
-  color: 'D85F52' },
+  {
+    color: "D92E37",
+  },
 
-{
-  color: 'D92E37' },
+  {
+    color: "FC9736",
+  },
 
-{
-  color: 'FC9736' },
+  {
+    color: "F7BD69",
+  },
 
-{
-  color: 'F7BD69' },
+  {
+    color: "A4D09C",
+  },
 
-{
-  color: 'A4D09C' },
+  {
+    color: "4C8A67",
+  },
 
-{
-  color: '4C8A67' },
+  {
+    color: "25608A",
+  },
 
-{
-  color: '25608A' },
+  {
+    color: "75C8C6",
+  },
 
-{
-  color: '75C8C6' },
+  {
+    color: "F5E4B7",
+  },
 
-{
-  color: 'F5E4B7' },
+  {
+    color: "E69041",
+  },
 
-{
-  color: 'E69041' },
+  {
+    color: "E56013",
+  },
 
-{
-  color: 'E56013' },
+  {
+    color: "11101D",
+  },
 
-{
-  color: '11101D' },
+  {
+    color: "630609",
+  },
 
-{
-  color: '630609' },
+  {
+    color: "C9240E",
+  },
 
-{
-  color: 'C9240E' },
+  {
+    color: "EC4B17",
+  },
 
-{
-  color: 'EC4B17' },
+  {
+    color: "281A1C",
+  },
 
-{
-  color: '281A1C' },
+  {
+    color: "4F556F",
+  },
 
-{
-  color: '4F556F' },
+  {
+    color: "64739B",
+  },
 
-{
-  color: '64739B' },
+  {
+    color: "CDBAC7",
+  },
 
-{
-  color: 'CDBAC7' },
+  {
+    color: "946F43",
+  },
 
-{
-  color: '946F43' },
+  {
+    color: "66533C",
+  },
 
-{
-  color: '66533C' },
+  {
+    color: "173A2F",
+  },
 
-{
-  color: '173A2F' },
+  {
+    color: "153944",
+  },
 
-{
-  color: '153944' },
+  {
+    color: "27548D",
+  },
 
-{
-  color: '27548D' },
-
-{
-  color: '438AAC' }];
-
-
-
+  {
+    color: "438AAC",
+  },
+];
 
 const BACKGROUND_COLOR = 0xf1f1f1;
 // Init the scene
@@ -196,7 +253,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(BACKGROUND_COLOR);
 scene.fog = new THREE.Fog(BACKGROUND_COLOR, 20, 100);
 
-const canvas = document.querySelector('#c');
+const canvas = document.querySelector("#c");
 
 // Init the renderer
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -209,59 +266,71 @@ var cameraFar = 5;
 document.body.appendChild(renderer.domElement);
 
 // Add a camerra
-var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(
+  50,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 camera.position.z = cameraFar;
 camera.position.x = 0;
 
 // Initial material
-const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0xf1f1f1, shininess: 10 });
+const INITIAL_MTL = new THREE.MeshPhongMaterial({
+  color: 0xf1f1f1,
+  shininess: 10,
+});
 
 const INITIAL_MAP = [
-{ childID: "back", mtl: INITIAL_MTL },
-{ childID: "base", mtl: INITIAL_MTL },
-{ childID: "cushions", mtl: INITIAL_MTL },
-{ childID: "legs", mtl: INITIAL_MTL },
-{ childID: "supports", mtl: INITIAL_MTL }];
-
+  { childID: "back", mtl: INITIAL_MTL },
+  { childID: "base", mtl: INITIAL_MTL },
+  { childID: "cushions", mtl: INITIAL_MTL },
+  { childID: "legs", mtl: INITIAL_MTL },
+  { childID: "supports", mtl: INITIAL_MTL },
+];
 
 // Init the object loader
 var loader = new THREE.GLTFLoader();
 
-loader.load(MODEL_PATH, function (gltf) {
-  theModel = gltf.scene;
+loader.load(
+  MODEL_PATH,
+  function (gltf) {
+    theModel = gltf.scene;
 
-  theModel.traverse(o => {
-    if (o.isMesh) {
-      o.castShadow = true;
-      o.receiveShadow = true;
+    theModel.traverse((o) => {
+      if (o.isMesh) {
+        o.castShadow = true;
+        o.receiveShadow = true;
+      }
+    });
+
+    // Set the models initial scale
+    theModel.scale.set(2, 2, 2);
+    theModel.rotation.y = Math.PI;
+
+    // Offset the y position a bit
+    theModel.position.y = -1;
+
+    // Set initial textures
+    for (let object of INITIAL_MAP) {
+      initColor(theModel, object.childID, object.mtl);
     }
-  });
 
-  // Set the models initial scale   
-  theModel.scale.set(2, 2, 2);
-  theModel.rotation.y = Math.PI;
+    // Add the model to the scene
+    scene.add(theModel);
 
-  // Offset the y position a bit
-  theModel.position.y = -1;
-
-  // Set initial textures
-  for (let object of INITIAL_MAP) {
-    initColor(theModel, object.childID, object.mtl);
+    // Remove the loader
+    LOADER.remove();
+  },
+  undefined,
+  function (error) {
+    console.error(error);
   }
-
-  // Add the model to the scene
-  scene.add(theModel);
-
-  // Remove the loader
-  LOADER.remove();
-
-}, undefined, function (error) {
-  console.error(error);
-});
+);
 
 // Function - Add the textures to the models
 function initColor(parent, type, mtl) {
-  parent.traverse(o => {
+  parent.traverse((o) => {
     if (o.isMesh) {
       if (o.name.includes(type)) {
         o.material = mtl;
@@ -274,22 +343,22 @@ function initColor(parent, type, mtl) {
 // Add lights
 var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
 hemiLight.position.set(0, 50, 0);
-// Add hemisphere light to scene   
+// Add hemisphere light to scene
 scene.add(hemiLight);
 
 var dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
 dirLight.position.set(-8, 12, 8);
 dirLight.castShadow = true;
 dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-// Add directional Light to scene    
+// Add directional Light to scene
 scene.add(dirLight);
 
 // Floor
 var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
 var floorMaterial = new THREE.MeshPhongMaterial({
   color: 0xeeeeee,
-  shininess: 0 });
-
+  shininess: 0,
+});
 
 var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -0.5 * Math.PI;
@@ -308,7 +377,6 @@ controls.autoRotate = false; // Toggle this if you'd like the chair to automatic
 controls.autoRotateSpeed = 0.2; // 30
 
 function animate() {
-
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
@@ -321,7 +389,7 @@ function animate() {
 
   if (theModel != null && loaded == false) {
     initialRotation();
-    DRAG_NOTICE.classList.add('start');
+    DRAG_NOTICE.classList.add("start");
   }
 }
 
@@ -337,7 +405,6 @@ function resizeRendererToDisplaySize(renderer) {
 
   const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
   if (needResize) {
-
     renderer.setSize(width, height, false);
   }
   return needResize;
@@ -347,18 +414,16 @@ function resizeRendererToDisplaySize(renderer) {
 
 function buildColors(colors) {
   for (let [i, color] of colors.entries()) {
-    let swatch = document.createElement('div');
-    swatch.classList.add('tray__swatch');
+    let swatch = document.createElement("div");
+    swatch.classList.add("tray__swatch");
 
-    if (color.texture)
-    {
+    if (color.texture) {
       swatch.style.backgroundImage = "url(" + color.texture + ")";
-    } else
-    {
+    } else {
       swatch.style.background = "#" + color.color;
     }
 
-    swatch.setAttribute('data-key', i);
+    swatch.setAttribute("data-key", i);
     TRAY.append(swatch);
   }
 }
@@ -369,23 +434,23 @@ buildColors(colors);
 const options = document.querySelectorAll(".option");
 
 for (const option of options) {
-  option.addEventListener('click', selectOption);
+  option.addEventListener("click", selectOption);
 }
 
 function selectOption(e) {
   let option = e.target;
   activeOption = e.target.dataset.option;
   for (const otherOption of options) {
-    otherOption.classList.remove('--is-active');
+    otherOption.classList.remove("--is-active");
   }
-  option.classList.add('--is-active');
+  option.classList.add("--is-active");
 }
 
 // Swatches
 const swatches = document.querySelectorAll(".tray__swatch");
 
 for (const swatch of swatches) {
-  swatch.addEventListener('click', selectSwatch);
+  swatch.addEventListener("click", selectSwatch);
 }
 
 function selectSwatch(e) {
@@ -393,7 +458,6 @@ function selectSwatch(e) {
   let new_mtl;
 
   if (color.texture) {
-
     let txt = new THREE.TextureLoader().load(color.texture);
 
     txt.repeat.set(color.size[0], color.size[1], color.size[2]);
@@ -402,23 +466,20 @@ function selectSwatch(e) {
 
     new_mtl = new THREE.MeshPhongMaterial({
       map: txt,
-      shininess: color.shininess ? color.shininess : 10 });
-
-  } else
-
-  {
+      shininess: color.shininess ? color.shininess : 10,
+    });
+  } else {
     new_mtl = new THREE.MeshPhongMaterial({
-      color: parseInt('0x' + color.color),
-      shininess: color.shininess ? color.shininess : 10 });
-
-
+      color: parseInt("0x" + color.color),
+      shininess: color.shininess ? color.shininess : 10,
+    });
   }
 
   setMaterial(theModel, activeOption, new_mtl);
 }
 
 function setMaterial(parent, type, mtl) {
-  parent.traverse(o => {
+  parent.traverse((o) => {
     if (o.isMesh && o.nameID != null) {
       if (o.nameID == type) {
         o.material = mtl;
@@ -439,24 +500,25 @@ function initialRotation() {
   }
 }
 
-var slider = document.getElementById('js-tray'),sliderItems = document.getElementById('js-tray-slide'),difference;
+var slider = document.getElementById("js-tray"),
+  sliderItems = document.getElementById("js-tray-slide"),
+  difference;
 
 function slide(wrapper, items) {
   var posX1 = 0,
-  posX2 = 0,
-  posInitial,
-  threshold = 20,
-  posFinal,
-  slides = items.getElementsByClassName('tray__swatch');
+    posX2 = 0,
+    posInitial,
+    threshold = 20,
+    posFinal,
+    slides = items.getElementsByClassName("tray__swatch");
 
   // Mouse events
   items.onmousedown = dragStart;
 
   // Touch events
-  items.addEventListener('touchstart', dragStart);
-  items.addEventListener('touchend', dragEnd);
-  items.addEventListener('touchmove', dragAction);
-
+  items.addEventListener("touchstart", dragStart);
+  items.addEventListener("touchend", dragEnd);
+  items.addEventListener("touchmove", dragAction);
 
   function dragStart(e) {
     e = e || window.event;
@@ -464,7 +526,7 @@ function slide(wrapper, items) {
     difference = sliderItems.offsetWidth - slider.offsetWidth;
     difference = difference * -1;
 
-    if (e.type == 'touchstart') {
+    if (e.type == "touchstart") {
       posX1 = e.touches[0].clientX;
     } else {
       posX1 = e.clientX;
@@ -476,7 +538,7 @@ function slide(wrapper, items) {
   function dragAction(e) {
     e = e || window.event;
 
-    if (e.type == 'touchmove') {
+    if (e.type == "touchmove") {
       posX2 = posX1 - e.touches[0].clientX;
       posX1 = e.touches[0].clientX;
     } else {
@@ -484,7 +546,10 @@ function slide(wrapper, items) {
       posX1 = e.clientX;
     }
 
-    if (items.offsetLeft - posX2 <= 0 && items.offsetLeft - posX2 >= difference) {
+    if (
+      items.offsetLeft - posX2 <= 0 &&
+      items.offsetLeft - posX2 >= difference
+    ) {
       items.style.left = items.offsetLeft - posX2 + "px";
     }
   }
@@ -492,9 +557,7 @@ function slide(wrapper, items) {
   function dragEnd(e) {
     posFinal = items.offsetLeft;
     if (posFinal - posInitial < -threshold) {
-
     } else if (posFinal - posInitial > threshold) {
-
     } else {
       items.style.left = posInitial + "px";
     }
@@ -502,7 +565,6 @@ function slide(wrapper, items) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
-
 }
 
 slide(slider, sliderItems);
