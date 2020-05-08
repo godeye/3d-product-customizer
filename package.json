@@ -1,0 +1,21 @@
+{
+  "name": "360-degree-preview",
+  "version": "1.0.0",
+  "description": "three.js product configurator",
+  "main": "script.js",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "keywords": [
+    "three.js",
+    "product",
+    "customization",
+    "web-gl",
+    "blender"
+  ],
+  "author": "swapnil bhamat",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
