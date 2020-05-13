@@ -75,20 +75,20 @@ const colorsByItems = {
   ],
   front: [
     {
-      texture: "img/logo1.jpg",
-      size: [10, 10, 10],
+      texture: "img/amla.jpg",
+      size: [20, 20, 20],
       shininess: 10,
     },
-    {
-      texture: "img/logo2.jpg",
-      size: [10, 10, 10],
-      shininess: 10,
-    },
-    {
-      texture: "img/logo3.jpg",
-      size: [10, 10, 10],
-      shininess: 10,
-    },
+    // {
+    //   texture: "img/logo10.png",
+    //   size: [20, 20, 20],
+    //   shininess: 10,
+    // },
+    // {
+    //   texture: "img/logo11.png",
+    //   size: [20, 20, 20],
+    //   shininess: 10,
+    // },
     {
       texture: "img/logo4.jpg",
       size: [10, 10, 10],
