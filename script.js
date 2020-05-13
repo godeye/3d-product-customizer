@@ -1,5 +1,4 @@
 const LOADER = document.getElementById("js-loader");
-
 const TRAY = document.getElementById("js-tray-slide");
 const DRAG_NOTICE = document.getElementById("js-drag-notice");
 
@@ -10,241 +9,265 @@ const MODEL_PATH = "dummy-chair.glb";
 var activeOption = "legs";
 var loaded = false;
 
-const colors = [
-  {
-    texture: "img/wood_.jpg",
-    size: [2, 2, 2],
-    shininess: 60,
-  },
+const colorsByItems = {
+  legs: [
+    {
+      texture: "img/wood_.jpg",
+      size: [2, 2, 2],
+      shininess: 60,
+    },
+    {
+      color: "630609",
+    },
 
-  {
-    texture: "img/fabric_.jpg",
-    size: [4, 4, 4],
-    shininess: 0,
-  },
+    {
+      color: "C9240E",
+    },
 
-  {
-    texture: "img/pattern_.jpg",
-    size: [8, 8, 8],
-    shininess: 10,
-  },
-  {
-    texture: "img/amla.jpg",
-    size: [20, 20, 20],
-    shininess: 10,
-  },
-  {
-    texture: "img/denim_.jpg",
-    size: [3, 3, 3],
-    shininess: 0,
-  },
+    {
+      color: "EC4B17",
+    },
 
-  {
-    texture: "img/quilt_.jpg",
-    size: [6, 6, 6],
-    shininess: 0,
-  },
+    {
+      color: "281A1C",
+    },
 
-  {
-    color: "131417",
-  },
+    {
+      color: "4F556F",
+    },
 
-  {
-    color: "374047",
-  },
+    {
+      color: "173A2F",
+    },
+  ],
+  cushions: [
+    {
+      color: "A4D09C",
+    },
 
-  {
-    color: "5f6e78",
-  },
+    {
+      color: "4C8A67",
+    },
 
-  {
-    color: "7f8a93",
-  },
+    {
+      color: "25608A",
+    },
 
-  {
-    color: "97a1a7",
-  },
+    {
+      color: "75C8C6",
+    },
 
-  {
-    color: "acb4b9",
-  },
+    {
+      color: "F5E4B7",
+    },
 
-  {
-    color: "DF9998",
-  },
+    {
+      color: "E69041",
+    },
 
-  {
-    color: "7C6862",
-  },
+    {
+      color: "E56013",
+    },
 
-  {
-    color: "A3AB84",
-  },
+    {
+      color: "11101D",
+    },
+  ],
+  front: [
+    {
+      texture: "img/logo1.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo2.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo3.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo4.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo5.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo6.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo7.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo8.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+    {
+      texture: "img/logo9.jpg",
+      size: [10, 10, 10],
+      shininess: 10,
+    },
+  ],
+  base: [
+    {
+      color: "131417",
+    },
 
-  {
-    color: "D6CCB1",
-  },
+    {
+      color: "374047",
+    },
 
-  {
-    color: "F8D5C4",
-  },
+    {
+      color: "5f6e78",
+    },
 
-  {
-    color: "A3AE99",
-  },
+    {
+      color: "7f8a93",
+    },
 
-  {
-    color: "EFF2F2",
-  },
+    {
+      color: "97a1a7",
+    },
 
-  {
-    color: "B0C5C1",
-  },
+    {
+      color: "acb4b9",
+    },
+    {
+      color: "64739B",
+    },
 
-  {
-    color: "8B8C8C",
-  },
+    {
+      color: "CDBAC7",
+    },
 
-  {
-    color: "565F59",
-  },
+    {
+      color: "946F43",
+    },
 
-  {
-    color: "CB304A",
-  },
+    {
+      color: "66533C",
+    },
+  ],
+  supports: [
+    {
+      color: "DF9998",
+    },
 
-  {
-    color: "FED7C8",
-  },
+    {
+      color: "7C6862",
+    },
 
-  {
-    color: "C7BDBD",
-  },
+    {
+      color: "A3AB84",
+    },
 
-  {
-    color: "3DCBBE",
-  },
+    {
+      color: "D6CCB1",
+    },
 
-  {
-    color: "264B4F",
-  },
+    {
+      color: "F8D5C4",
+    },
 
-  {
-    color: "389389",
-  },
+    {
+      color: "A3AE99",
+    },
+    {
+      color: "153944",
+    },
 
-  {
-    color: "85BEAE",
-  },
+    {
+      color: "27548D",
+    },
 
-  {
-    color: "F2DABA",
-  },
+    {
+      color: "438AAC",
+    },
+  ],
+  back: [
+    {
+      color: "EFF2F2",
+    },
 
-  {
-    color: "F2A97F",
-  },
+    {
+      color: "B0C5C1",
+    },
 
-  {
-    color: "D85F52",
-  },
+    {
+      color: "8B8C8C",
+    },
 
-  {
-    color: "D92E37",
-  },
+    {
+      color: "565F59",
+    },
 
-  {
-    color: "FC9736",
-  },
+    {
+      color: "CB304A",
+    },
 
-  {
-    color: "F7BD69",
-  },
+    {
+      color: "FED7C8",
+    },
 
-  {
-    color: "A4D09C",
-  },
+    {
+      color: "C7BDBD",
+    },
 
-  {
-    color: "4C8A67",
-  },
+    {
+      color: "3DCBBE",
+    },
 
-  {
-    color: "25608A",
-  },
+    {
+      color: "264B4F",
+    },
 
-  {
-    color: "75C8C6",
-  },
+    {
+      color: "389389",
+    },
 
-  {
-    color: "F5E4B7",
-  },
+    {
+      color: "85BEAE",
+    },
 
-  {
-    color: "E69041",
-  },
+    {
+      color: "F2DABA",
+    },
 
-  {
-    color: "E56013",
-  },
+    {
+      color: "F2A97F",
+    },
 
-  {
-    color: "11101D",
-  },
+    {
+      color: "D85F52",
+    },
 
-  {
-    color: "630609",
-  },
+    {
+      color: "D92E37",
+    },
 
-  {
-    color: "C9240E",
-  },
+    {
+      color: "FC9736",
+    },
 
-  {
-    color: "EC4B17",
-  },
+    {
+      color: "F7BD69",
+    },
+  ],
+};
 
-  {
-    color: "281A1C",
-  },
-
-  {
-    color: "4F556F",
-  },
-
-  {
-    color: "64739B",
-  },
-
-  {
-    color: "CDBAC7",
-  },
-
-  {
-    color: "946F43",
-  },
-
-  {
-    color: "66533C",
-  },
-
-  {
-    color: "173A2F",
-  },
-
-  {
-    color: "153944",
-  },
-
-  {
-    color: "27548D",
-  },
-
-  {
-    color: "438AAC",
-  },
-];
+let colors = colorsByItems["legs"];
 
 const BACKGROUND_COLOR = 0xf1f1f1;
 // Init the scene
@@ -287,6 +310,7 @@ const INITIAL_MAP = [
   { childID: "cushions", mtl: INITIAL_MTL },
   { childID: "legs", mtl: INITIAL_MTL },
   { childID: "supports", mtl: INITIAL_MTL },
+  { childID: "front", mtl: INITIAL_MTL },
 ];
 
 // Init the object loader
@@ -413,6 +437,7 @@ function resizeRendererToDisplaySize(renderer) {
 // Function - Build Colors
 
 function buildColors(colors) {
+  TRAY.innerHTML = "";
   for (let [i, color] of colors.entries()) {
     let swatch = document.createElement("div");
     swatch.classList.add("tray__swatch");
@@ -440,18 +465,26 @@ for (const option of options) {
 function selectOption(e) {
   let option = e.target;
   activeOption = e.target.dataset.option;
+
   for (const otherOption of options) {
     otherOption.classList.remove("--is-active");
   }
   option.classList.add("--is-active");
-}
 
+  colors = colorsByItems[activeOption];
+  buildColors(colors);
+  attachListenerToSwatches();
+}
 // Swatches
-const swatches = document.querySelectorAll(".tray__swatch");
+function attachListenerToSwatches() {
+  const swatches = document.querySelectorAll(".tray__swatch");
 
-for (const swatch of swatches) {
-  swatch.addEventListener("click", selectSwatch);
+  for (const swatch of swatches) {
+    swatch.addEventListener("click", selectSwatch);
+  }
 }
+
+attachListenerToSwatches();
 
 function selectSwatch(e) {
   let color = colors[parseInt(e.target.dataset.key)];
@@ -460,7 +493,7 @@ function selectSwatch(e) {
   if (color.texture) {
     let txt = new THREE.TextureLoader().load(color.texture);
 
-    txt.repeat.set(color.size[0], color.size[1], color.size[2]);
+    txt.repeat.set(color.size[0], color.size[1]);
     txt.wrapS = THREE.RepeatWrapping;
     txt.wrapT = THREE.RepeatWrapping;
 
